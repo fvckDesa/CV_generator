@@ -1,1 +1,1 @@
-# CV_generator
+# CV Generator
