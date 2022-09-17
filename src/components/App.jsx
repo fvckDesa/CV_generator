@@ -1,7 +1,17 @@
+import { Component } from "react";
+// style
 import "style/App.css";
 
-function App() {
-  return <div className="App">Test</div>;
+// components
+import Curriculum from "./Curriculum";
+class App extends Component {
+  render() {
+    return (
+      <div className="App">
+        <Curriculum />
+      </div>
+    );
+  }
 }
 
 export default App;

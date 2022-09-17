@@ -1,0 +1,47 @@
+.content-item {
+  min-height: 150px;
+}
+
+.content-item__header {
+  width: calc(100% - 20px);
+  padding: 5px;
+  padding-right: 50px;
+  background-color: var(--accent);
+  text-align: end;
+}
+
+.content-item__header > h2 {
+  font-weight: 600;
+  letter-spacing: 3px;
+  color: #e7e7e7;
+}
+
+.content-item__list {
+  padding: 20px;
+}
+
+.content-item__list-item {
+  display: flex;
+  gap: 10px;
+}
+
+.marker {
+  width: 20px;
+  height: 20px;
+  margin-top: 15px;
+  background-color: var(--accent);
+}
+
+.content-item__list-item > section:first-of-type {
+  width: 30%;
+  margin-top: 10px;
+}
+
+.content-item__list-item > section:last-of-type {
+  width: 50%;
+  margin-left: auto;
+}
+
+.content-item__list-item > section > :last-child {
+  margin-top: 5px;
+}

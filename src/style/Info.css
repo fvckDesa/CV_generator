@@ -1,0 +1,71 @@
+.info {
+  --accent: #ff9b01;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: max(30%, 225px);
+  padding: 20px;
+  padding-top: calc(var(--header-height) - 20px);
+  background-color: var(--secondary-bg);
+  color: #e7e7e7;
+}
+
+.info a {
+  color: #e7e7e7;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.info-item {
+  width: 100%;
+}
+
+.info-item__header {
+  padding: 5px 10px;
+  border: solid 3px var(--accent);
+  text-align: center;
+}
+
+.info-item__list {
+  padding: 20px 10px;
+}
+
+.info-item__list-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.info-item__list-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.info-item__list-item__icon {
+  color: var(--accent);
+}
+
+.skill-item {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.skill-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
+.skill-marker {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: var(--accent);
+}
+
+.social {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px;
+  border-top: solid 3px #e7e7e7;
+  margin-top: auto;
+}
