@@ -121,10 +121,13 @@
   position: absolute;
   padding: 5px;
   color: var(--accent);
+<<<<<<< HEAD
 }
 
 .social-link:nth-child(3n - 1) {
   margin-right: auto;
+=======
+>>>>>>> f9b1ca03d560f1560af94a64f017925a82fbb2d7
 }
 
 .social-link:nth-child(3n) {
