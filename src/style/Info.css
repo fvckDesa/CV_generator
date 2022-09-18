@@ -62,10 +62,17 @@
 }
 
 .social {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   padding: 20px;
   border-top: solid 3px #e7e7e7;
   margin-top: auto;
+}
+
+.social-link:nth-child(3n - 1) {
+  margin: auto;
+}
+
+.social-link:nth-child(3n) {
+  margin-left: auto;
 }

@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-//style
-import "style/Social.css";
 //components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //icons

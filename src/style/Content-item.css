@@ -1,4 +1,5 @@
 .content-item {
+  position: relative;
   min-height: 150px;
 }
 
@@ -17,12 +18,19 @@
 }
 
 .content-item__list {
-  padding: 20px;
+  padding: 25px;
 }
 
 .content-item__list-item {
+  position: relative;
   display: flex;
   gap: 10px;
+}
+
+.full-text-area {
+  width: calc(100% - 50px);
+  height: 100%;
+  margin: 25px;
 }
 
 .marker {
@@ -30,6 +38,10 @@
   height: 20px;
   margin-top: 15px;
   background-color: var(--accent);
+}
+
+.content-item__list-item > section {
+  text-align: center;
 }
 
 .content-item__list-item > section:first-of-type {
@@ -44,4 +56,144 @@
 
 .content-item__list-item > section > :last-child {
   margin-top: 5px;
+}
+
+.delete-icon {
+  position: absolute;
+  top: 50%;
+  left: 100%;
+  translate: 0 -50%;
+  padding: 5px;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  cursor: pointer;
+}
+
+.content-item__list-item:hover .delete-icon {
+  opacity: 1;
+}
+
+.content-item__list-form {
+  margin-top: 10px;
+}
+
+.content-item__list-form > main {
+  padding: 5px;
+  border: solid 1px #808080;
+  border-radius: 10px;
+}
+
+.content-item__list-form > main:focus-within {
+  border-color: #000;
+}
+
+.content-item__list-form > main input,
+.content-item__list-form > main textarea {
+  border: none;
+  border-radius: 0;
+  background-color: transparent;
+}
+
+.content-item__list-form > main textarea {
+  padding: 5px;
+}
+
+.input-row {
+  display: flex;
+  align-items: center;
+}
+
+.input-row label {
+  display: flex;
+  align-items: center;
+  flex: 1;
+}
+
+.input-row input[pattern] {
+  border-bottom: solid 1.5px transparent;
+  border-radius: 5px;
+}
+
+.input-row svg {
+  color: #d1453b;
+  visibility: hidden;
+}
+
+.input-row label:first-child svg {
+  margin-right: 3px;
+}
+
+.input-row input:invalid + svg {
+  visibility: visible;
+}
+
+.input-row > div {
+  width: 1.5px;
+  height: 20px;
+  background-color: #000;
+}
+
+.content-item__list-form > footer {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding: 5px;
+}
+
+.content-item__list-form > footer button {
+  padding: 5px 10px;
+  border-style: solid;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.content-item__list-form > footer button[type="submit"] {
+  border-color: var(--accent);
+  background-color: var(--accent);
+}
+
+.add-item-btn {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  padding: 5px 0;
+  color: var(--accent);
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.add-item-btn > * {
+  transition: color 0.3s ease;
+}
+
+.add-item-btn > svg {
+  box-sizing: border-box !important;
+  width: 20px;
+  height: 20px;
+  padding: 3px;
+  border-radius: 100px;
+  transition: background 0.3s ease;
+}
+
+.add-item-btn:not(:hover) > span {
+  color: #000;
+}
+
+.add-item-btn:hover > svg {
+  color: var(--bg);
+  background-color: var(--accent);
+}
+
+.about-me .edit-btn,
+.content-item .edit-btn {
+  top: 33px;
+  right: 3px;
+}
+
+.about-me:hover .edit-btn,
+.content-item:hover .edit-btn {
+  opacity: 1;
 }
