@@ -3,8 +3,8 @@ import React, { Component } from "react";
 import "style/Curriculum.css";
 //components
 import Info from "components/Info";
-import CurriculumHeader from "components/Curriculum-header";
-import CurriculumContent from "components/Curriculum-content";
+import CurriculumHeader from "components/CurriculumHeader";
+import CurriculumContent from "components/CurriculumContent";
 
 class Curriculum extends Component {
   render() {

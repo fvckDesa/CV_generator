@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 //style
-import "style/Content-item.css";
+import "style/ContentItem.css";
 //components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AutoResize from "components/AutoResize";
