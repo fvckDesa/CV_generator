@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //icons
 import { faPlus, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+//images
+import UserPicture from "assets/user-solid.svg";
 
 class CurriculumHeader extends Component {
   constructor() {
@@ -10,6 +12,9 @@ class CurriculumHeader extends Component {
 
     this.state = {
       editMode: false,
+      picture: UserPicture,
+      name: "",
+      profession: "",
     };
 
     this.fileInputRef = React.createRef();
@@ -18,7 +23,7 @@ class CurriculumHeader extends Component {
   setPicture(e) {
     if (!e.target.files[0]) return;
 
-    this.props.changeState(({ picture }) => {
+    this.setState(({ picture }) => {
       URL.revokeObjectURL(picture);
       return { picture: URL.createObjectURL(e.target.files[0]) };
     });
@@ -34,13 +39,12 @@ class CurriculumHeader extends Component {
 
   handleChange(name) {
     return function (e) {
-      this.props.changeState({ ...this.props.values, [name]: e.target.value });
+      this.setState({ ...this.props.values, [name]: e.target.value });
     };
   }
 
   render() {
-    const { picture, name, profession } = this.props.values;
-    const { editMode } = this.state;
+    const { picture, name, profession, editMode } = this.state;
 
     return (
       <header className="curriculum-header">
