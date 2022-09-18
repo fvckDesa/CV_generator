@@ -30,7 +30,15 @@
 .full-text-area {
   width: calc(100% - 50px);
   height: 100%;
+  padding: 5px;
+  border-radius: 5px;
+  border: solid 1px #808080;
   margin: 25px;
+  font-family: inherit;
+}
+
+.full-text-area:focus {
+  border-color: #000;
 }
 
 .marker {
@@ -89,6 +97,7 @@
 
 .content-item__list-form > main input,
 .content-item__list-form > main textarea {
+  font-family: inherit;
   border: none;
   border-radius: 0;
   background-color: transparent;
@@ -143,14 +152,23 @@
 
 .content-item__list-form > footer button {
   padding: 5px 10px;
-  border-style: solid;
+  border: solid 1px #000;
   border-radius: 5px;
   cursor: pointer;
+}
+
+.content-item__list-form > footer button[type="reset"]:hover {
+  background-color: #e5e5e5;
 }
 
 .content-item__list-form > footer button[type="submit"] {
   border-color: var(--accent);
   background-color: var(--accent);
+  color: #eee;
+}
+
+.content-item__list-form > footer button[type="submit"]:hover {
+  opacity: 0.8;
 }
 
 .add-item-btn {
@@ -189,7 +207,7 @@
 
 .about-me .edit-btn,
 .content-item .edit-btn {
-  top: 33px;
+  top: 30px;
   right: 3px;
 }
 

@@ -5,8 +5,9 @@ import "style/ContentItem.css";
 //components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AutoResize from "components/AutoResize";
+import AddItemBtn from "components/AddItemBtn";
+import CurriculumForm from "components/CurriculumForm";
 //icons
-import { faPlus } from "@fortawesome/free-solid-svg-icons";
 import {
   faPenToSquare,
   faXmark,
@@ -117,68 +118,54 @@ class ContentList extends Component {
             ),
           )}
           {editMode && !isFormActive && (
-            <button
-              key="add-btn"
-              className="add-item-btn"
-              onClick={this.toggleForm.bind(this)}
-            >
-              <FontAwesomeIcon icon={faPlus} />
-              <span>Add</span>
-            </button>
+            <AddItemBtn onClick={this.toggleForm.bind(this)} />
           )}
           {editMode && isFormActive && (
-            <form
-              className="content-item__list-form"
+            <CurriculumForm
               onReset={this.handleReset.bind(this)}
               onSubmit={this.handleSubmit.bind(this)}
             >
-              <main>
-                <input
-                  type="text"
-                  value={form.title}
-                  placeholder="Title"
-                  onChange={this.handleInputChange("title").bind(this)}
-                />
-                <AutoResize
-                  value={form.description}
-                  placeholder="Description"
-                  onChange={this.handleDescriptionChange.bind(this)}
-                />
-                <input
-                  type="text"
-                  value={form.where}
-                  placeholder="Where"
-                  onChange={this.handleInputChange("where").bind(this)}
-                />
-                <div className="input-row">
-                  <label>
-                    <input
-                      type="text"
-                      value={form.yearStart}
-                      placeholder="Year of start"
-                      pattern="[0-9]{4}"
-                      onChange={this.handleInputChange("yearStart").bind(this)}
-                    />
-                    <FontAwesomeIcon icon={faTriangleExclamation} />
-                  </label>
-                  <div />
-                  <label>
-                    <input
-                      type="text"
-                      value={form.yearEnd}
-                      placeholder="Year of end / present"
-                      pattern="[0-9]{4}|present"
-                      onChange={this.handleInputChange("yearEnd").bind(this)}
-                    />
-                    <FontAwesomeIcon icon={faTriangleExclamation} />
-                  </label>
-                </div>
-              </main>
-              <footer>
-                <button type="reset">Cancel</button>
-                <button type="submit">Add</button>
-              </footer>
-            </form>
+              <input
+                type="text"
+                value={form.title}
+                placeholder="Title"
+                onChange={this.handleInputChange("title").bind(this)}
+              />
+              <AutoResize
+                value={form.description}
+                placeholder="Description"
+                onChange={this.handleDescriptionChange.bind(this)}
+              />
+              <input
+                type="text"
+                value={form.where}
+                placeholder="Where"
+                onChange={this.handleInputChange("where").bind(this)}
+              />
+              <div className="input-row">
+                <label>
+                  <input
+                    type="text"
+                    value={form.yearStart}
+                    placeholder="Year of start"
+                    pattern="[0-9]{4}"
+                    onChange={this.handleInputChange("yearStart").bind(this)}
+                  />
+                  <FontAwesomeIcon icon={faTriangleExclamation} />
+                </label>
+                <div />
+                <label>
+                  <input
+                    type="text"
+                    value={form.yearEnd}
+                    placeholder="Year of end / present"
+                    pattern="[0-9]{4}|present"
+                    onChange={this.handleInputChange("yearEnd").bind(this)}
+                  />
+                  <FontAwesomeIcon icon={faTriangleExclamation} />
+                </label>
+              </div>
+            </CurriculumForm>
           )}
         </ul>
       </li>
