@@ -17,6 +17,7 @@
 }
 
 .info-item {
+  position: relative;
   width: 100%;
 }
 
@@ -31,9 +32,9 @@
 }
 
 .info-item__list-item {
+  position: relative;
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
 .info-item__list-item:not(:last-child) {
@@ -41,10 +42,24 @@
 }
 
 .info-item__list-item__icon {
+  position: absolute;
+  left: 5px;
+  width: 16px;
+  height: 16px;
+  padding: 4px;
   color: var(--accent);
 }
 
+.info-item__list-item > div {
+  margin-left: 35px;
+}
+
+.info-item__list-item .info-item__list-item__input {
+  padding-left: 35px;
+}
+
 .skill-item {
+  position: relative;
   display: flex;
   align-items: center;
   gap: 15px;
@@ -52,6 +67,14 @@
 
 .skill-item:not(:last-child) {
   margin-bottom: 10px;
+}
+
+.skill-item svg {
+  color: #e7e7e7;
+}
+
+.skill-item:hover svg {
+  opacity: 1;
 }
 
 .skill-marker {
@@ -64,15 +87,93 @@
 .social {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
+  row-gap: 10px;
   padding: 20px;
   border-top: solid 3px #e7e7e7;
   margin-top: auto;
 }
 
+.social.edit-mode-active {
+  grid-template-columns: 1fr;
+}
+
+.social-field {
+  position: relative;
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.social-field__input {
+  width: 100%;
+  height: 100%;
+  padding: 5px;
+  padding-left: 35px;
+  border-radius: 5px;
+  border: solid 2px transparent;
+}
+
+.social-field__input:invalid {
+  border-color: #d1453b;
+}
+
+.social-field__icon {
+  position: absolute;
+  padding: 5px;
+  color: var(--accent);
+}
+
 .social-link:nth-child(3n - 1) {
-  margin: auto;
+  margin-right: auto;
 }
 
 .social-link:nth-child(3n) {
+  margin: auto;
+}
+
+.social-link:nth-child(3n + 1) {
   margin-left: auto;
+}
+
+.info .edit-btn {
+  color: #e7e7e7;
+}
+
+.info-item:hover .edit-btn {
+  opacity: 1;
+}
+
+.info-item .edit-btn {
+  top: 35px;
+  left: 100%;
+  translate: -50% 0;
+}
+
+.skills .edit-btn {
+  top: 20px;
+}
+
+.social .edit-btn {
+  top: 0;
+}
+
+.info .add-item-btn:not(:hover) > span {
+  color: #e7e7e7;
+}
+
+.info .add-item-btn:hover > svg {
+  color: var(--secondary-bg);
+  background-color: var(--accent);
+}
+
+.info .content-item__list-form input {
+  color: #e7e7e7;
+}
+
+.info .content-item__list-form:focus-within main {
+  border-color: #fff;
+}
+
+.info .content-item__list-form button[type="submit"] {
+  color: var(--secondary-bg);
 }
