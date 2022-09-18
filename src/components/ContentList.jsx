@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { v4 as uuidv4 } from "uuid";
 //style
 import "style/ContentItem.css";
 //components
@@ -12,13 +13,14 @@ import {
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
 
-const DEFAULT_FORM = {
+const createItem = () => ({
   title: "",
   description: "",
   yearStart: "",
   yearEnd: "",
   where: "",
-};
+  id: uuidv4(),
+});
 
 class ContentList extends Component {
   constructor() {
@@ -28,7 +30,7 @@ class ContentList extends Component {
       editMode: false,
       isFormActive: false,
       items: [],
-      form: { ...DEFAULT_FORM },
+      form: createItem(),
     };
   }
 
@@ -36,7 +38,7 @@ class ContentList extends Component {
     this.setState(({ editMode }) => ({
       editMode: !editMode,
       isFormActive: false,
-      form: { ...DEFAULT_FORM },
+      form: createItem(),
     }));
   }
 
@@ -47,14 +49,14 @@ class ContentList extends Component {
   }
 
   handleReset() {
-    this.setState({ form: { ...DEFAULT_FORM }, isFormActive: false });
+    this.setState({ form: createItem(), isFormActive: false });
   }
 
   handleSubmit(e) {
     e.preventDefault();
     this.setState(({ items, form }) => ({
       items: [...items, form],
-      form: { ...DEFAULT_FORM },
+      form: createItem(),
     }));
   }
 
@@ -72,6 +74,12 @@ class ContentList extends Component {
     }));
   }
 
+  deleteItem(id) {
+    this.setState(({ items }) => ({
+      items: items.filter((item) => item.id !== id),
+    }));
+  }
+
   render() {
     const { editMode, isFormActive, items, form } = this.state;
     return (
@@ -86,22 +94,28 @@ class ContentList extends Component {
           size="lg"
         />
         <ul className="content-item__list">
-          {items.map(({ yearStart, yearEnd, where, title, description }, i) => (
-            <li key={i} className="content-item__list-item">
-              <div className="marker" />
-              <section>
-                <h3>{`${yearStart}-${yearEnd}`}</h3>
-                <h3>{where}</h3>
-              </section>
-              <section>
-                <h2>{title}</h2>
-                <p>{description}</p>
-              </section>
-              {editMode && (
-                <FontAwesomeIcon className="delete-icon" icon={faXmark} />
-              )}
-            </li>
-          ))}
+          {items.map(
+            ({ yearStart, yearEnd, where, title, description, id }) => (
+              <li key={id} className="content-item__list-item">
+                <div className="marker" />
+                <section>
+                  <h3>{`${yearStart}-${yearEnd}`}</h3>
+                  <h3>{where}</h3>
+                </section>
+                <section>
+                  <h2>{title}</h2>
+                  <p>{description}</p>
+                </section>
+                {editMode && (
+                  <FontAwesomeIcon
+                    className="delete-icon"
+                    icon={faXmark}
+                    onClick={() => this.deleteItem(id)}
+                  />
+                )}
+              </li>
+            ),
+          )}
           {editMode && !isFormActive && (
             <button
               key="add-btn"
