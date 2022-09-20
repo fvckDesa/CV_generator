@@ -13,13 +13,21 @@ import {
   faXmark,
   faTriangleExclamation,
 } from "@fortawesome/free-solid-svg-icons";
+//constants
+import { LIST_ITEM } from "constants";
 
-const createItem = () => ({
-  title: "",
-  description: "",
-  yearStart: "",
-  yearEnd: "",
-  where: "",
+const createItem = ({
+  title,
+  description,
+  yearStart,
+  yearEnd,
+  where,
+} = {}) => ({
+  title: title ?? "",
+  description: description ?? "",
+  yearStart: yearStart ?? "",
+  yearEnd: yearEnd ?? "",
+  where: where ?? "",
   id: uuidv4(),
 });
 
@@ -30,7 +38,7 @@ class ContentList extends Component {
     this.state = {
       editMode: false,
       isFormActive: false,
-      items: [],
+      items: [createItem({ ...LIST_ITEM }), createItem({ ...LIST_ITEM })],
       form: createItem(),
     };
   }

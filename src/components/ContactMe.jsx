@@ -10,6 +10,8 @@ import {
   faEnvelope,
   faPenToSquare,
 } from "@fortawesome/free-solid-svg-icons";
+//constants
+import { ADDRESS, MAIL } from "constants";
 
 class ContactMe extends Component {
   constructor() {
@@ -17,9 +19,9 @@ class ContactMe extends Component {
 
     this.state = {
       editMode: false,
-      address: "",
+      address: ADDRESS,
       website: "",
-      mail: "",
+      mail: MAIL,
       phone: "",
     };
   }

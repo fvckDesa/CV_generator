@@ -27,6 +27,10 @@
   gap: 10px;
 }
 
+.content-item__list-item:not(:last-child) {
+  margin-bottom: 10px;
+}
+
 .full-text-area {
   width: calc(100% - 50px);
   height: 100%;

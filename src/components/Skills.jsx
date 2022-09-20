@@ -7,9 +7,11 @@ import CurriculumForm from "components/CurriculumForm";
 //icons
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+//constants
+import { SKILLS } from "constants";
 
-const createSkill = () => ({
-  name: "",
+const createSkill = (name) => ({
+  name: name ?? "",
   id: uuidv4(),
 });
 
@@ -20,7 +22,7 @@ class Skills extends Component {
     this.state = {
       editMode: false,
       isFromActive: false,
-      skills: [],
+      skills: SKILLS.map(createSkill),
       form: createSkill(),
     };
   }

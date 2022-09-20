@@ -10,6 +10,7 @@ import {
   faSquareTwitter,
 } from "@fortawesome/free-brands-svg-icons";
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+import { GITHUB } from "constants";
 
 const icons = {
   instagram: faSquareInstagram,
@@ -27,7 +28,7 @@ class Social extends Component {
       editMode: false,
       instagram: "",
       facebook: "",
-      github: "https://github.com/fvckDesa/CV_generator",
+      github: GITHUB,
       linkedin: "",
       twitter: "",
     };

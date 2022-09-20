@@ -4,6 +4,8 @@ import AutoResize from "components/AutoResize";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 //icons
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
+//constants
+import { ABOUT_ME } from "constants";
 
 class AboutMe extends Component {
   constructor() {
@@ -11,7 +13,7 @@ class AboutMe extends Component {
 
     this.state = {
       editMode: false,
-      aboutMe: "",
+      aboutMe: ABOUT_ME,
     };
   }
 
