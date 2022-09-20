@@ -1,7 +1,7 @@
-import React, { Component } from "react";
-//components
+import React, { useState } from "react";
+// components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//icons
+// icons
 import {
   faSquareInstagram,
   faSquareFacebook,
@@ -20,75 +20,66 @@ const icons = {
   twitter: faSquareTwitter,
 };
 
-class Social extends Component {
-  constructor() {
-    super();
+function Social() {
+  const [editMode, setEditMode] = useState(false);
+  const [social, setSocial] = useState({
+    instagram: "",
+    facebook: "",
+    github: GITHUB,
+    linkedin: "",
+    twitter: "",
+  });
 
-    this.state = {
-      editMode: false,
-      instagram: "",
-      facebook: "",
-      github: GITHUB,
-      linkedin: "",
-      twitter: "",
-    };
-  }
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
 
-  toggleEditMode() {
-    this.setState(({ editMode }) => ({ editMode: !editMode }));
-  }
+  const handleChange = (key) => (e) => {
+    setSocial({ ...social, [key]: e.target.value });
+  };
 
-  handleChange(name) {
-    return function (e) {
-      this.setState({ [name]: e.target.value });
-    };
-  }
-
-  render() {
-    const { editMode, ...social } = this.state;
-    return (
-      <div className={`info-item social ${editMode ? "edit-mode-active" : ""}`}>
-        <FontAwesomeIcon
-          className="edit-btn"
-          onClick={this.toggleEditMode.bind(this)}
-          icon={faPenToSquare}
-          size="lg"
-        />
-        {!editMode &&
-          Object.entries(social)
-            .filter((el) => !!el[1])
-            .map(([name, link]) => (
-              <a
-                key={name}
-                className="social-link"
-                href={link}
-                target="_blank"
-                rel="noopener"
-              >
-                <FontAwesomeIcon icon={icons[name]} size="2xl" />
-              </a>
-            ))}
-        {editMode &&
-          Object.entries(social).map(([name, link]) => (
-            <div key={name} className="social-field">
-              <input
-                type="url"
-                className="social-field__input"
-                placeholder={name}
-                pattern="http(s)?:\/\/(www\.)?(.)+\.(.)+"
-                value={link}
-                onChange={this.handleChange(name).bind(this)}
-              />
-              <FontAwesomeIcon
-                className="social-field__icon"
-                icon={icons[name]}
-                size="lg"
-              />
-            </div>
+  return (
+    <div className={`info-item social ${editMode ? "edit-mode-active" : ""}`}>
+      <FontAwesomeIcon
+        className="edit-btn"
+        onClick={toggleEditMode}
+        icon={faPenToSquare}
+        size="lg"
+      />
+      {!editMode &&
+        Object.entries(social)
+          .filter((el) => !!el[1])
+          .map(([name, link]) => (
+            <a
+              key={name}
+              className="social-link"
+              href={link}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <FontAwesomeIcon icon={icons[name]} size="2xl" />
+            </a>
           ))}
-      </div>
-    );
-  }
+      {editMode &&
+        Object.entries(social).map(([name, link]) => (
+          <div key={name} className="social-field">
+            <input
+              type="url"
+              className="social-field__input"
+              placeholder={name}
+              pattern="http(s)?:\/\/(www\.)?(.)+\.(.)+"
+              value={link}
+              onChange={handleChange(name)}
+            />
+            <FontAwesomeIcon
+              className="social-field__icon"
+              icon={icons[name]}
+              size="lg"
+            />
+          </div>
+        ))}
+    </div>
+  );
 }
 
 export default Social;

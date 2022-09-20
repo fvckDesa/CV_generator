@@ -1,13 +1,12 @@
-import React, { Component } from "react";
+import React, { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
-//components
+// components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import AddItemBtn from "components/AddItemBtn";
 import CurriculumForm from "components/CurriculumForm";
-//icons
-import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-import { faXmark } from "@fortawesome/free-solid-svg-icons";
-//constants
+// icons
+import { faPenToSquare, faXmark } from "@fortawesome/free-solid-svg-icons";
+// constants
 import { SKILLS } from "constants";
 
 const createSkill = (name) => ({
@@ -15,103 +14,77 @@ const createSkill = (name) => ({
   id: uuidv4(),
 });
 
-class Skills extends Component {
-  constructor() {
-    super();
+function Skills() {
+  const [editMode, setEditMode] = useState(false);
+  const [isFormActive, setIsFormActive] = useState(false);
+  const [skills, setSkills] = useState(SKILLS.map(createSkill));
+  const [form, setForm] = useState(createSkill());
 
-    this.state = {
-      editMode: false,
-      isFromActive: false,
-      skills: SKILLS.map(createSkill),
-      form: createSkill(),
-    };
-  }
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+    setIsFormActive(false);
+    setForm(createSkill());
+  };
 
-  toggleEditMode() {
-    this.setState(({ editMode }) => ({
-      editMode: !editMode,
-      isFromActive: false,
-      form: createSkill(),
-    }));
-  }
+  const handleChange = (e) => {
+    setForm({ ...form, name: e.target.value });
+  };
 
-  handleChange(e) {
-    this.setState(({ form }) => ({ form: { ...form, name: e.target.value } }));
-  }
-
-  handleSubmit(e) {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
-    this.setState(({ skills, form }) => ({
-      skills: [...skills, form],
-      form: createSkill(),
-    }));
-  }
+    setSkills([...skills, form]);
+    setForm(createSkill());
+  };
 
-  handleReset() {
-    this.setState({
-      form: createSkill(),
-      isFromActive: false,
-    });
-  }
+  const handleReset = () => {
+    setForm(createSkill());
+    setIsFormActive(false);
+  };
 
-  removeSkill(id) {
-    this.setState(({ skills }) => ({
-      skills: skills.filter((skill) => skill.id !== id),
-    }));
-  }
+  const removeSkill = (id) => {
+    setSkills(skills.filter((skill) => skill.id !== id));
+  };
 
-  render() {
-    const { editMode, skills, isFromActive, form } = this.state;
-    return (
-      <div className="info-item skills">
-        <FontAwesomeIcon
-          className="edit-btn"
-          onClick={this.toggleEditMode.bind(this)}
-          icon={faPenToSquare}
-          size="lg"
-        />
-        <header className="info-item__header">SKILLS</header>
-        <ul className="info-item__list">
-          {skills.map(({ name, id }) => (
-            <li key={id} className="skill-item">
-              <div className="skill-marker"></div>
-              <h3>{name}</h3>
-              {editMode && (
-                <FontAwesomeIcon
-                  className="delete-icon"
-                  icon={faXmark}
-                  onClick={() => this.removeSkill(id)}
-                />
-              )}
-            </li>
-          ))}
-          {editMode && !isFromActive && (
-            <AddItemBtn
-              onClick={() =>
-                this.setState(({ isFromActive }) => ({
-                  isFromActive: !isFromActive,
-                }))
-              }
-            />
-          )}
-          {editMode && isFromActive && (
-            <CurriculumForm
-              onSubmit={this.handleSubmit.bind(this)}
-              onReset={this.handleReset.bind(this)}
-            >
-              <input
-                type="text"
-                placeholder="Skill name"
-                value={form.name}
-                onChange={this.handleChange.bind(this)}
+  return (
+    <div className="info-item skills">
+      <FontAwesomeIcon
+        className="edit-btn"
+        onClick={toggleEditMode}
+        icon={faPenToSquare}
+        size="lg"
+      />
+      <header className="info-item__header">SKILLS</header>
+      <ul className="info-item__list">
+        {skills.map(({ name, id }) => (
+          <li key={id} className="skill-item">
+            <div className="skill-marker" />
+            <h3>{name}</h3>
+            {editMode && (
+              <FontAwesomeIcon
+                className="delete-icon"
+                icon={faXmark}
+                onClick={() => removeSkill(id)}
               />
-            </CurriculumForm>
-          )}
-        </ul>
-      </div>
-    );
-  }
+            )}
+          </li>
+        ))}
+        {editMode && !isFormActive && (
+          <AddItemBtn onClick={() => setIsFormActive(!isFormActive)} />
+        )}
+        {editMode && isFormActive && (
+          <CurriculumForm onSubmit={handleSubmit} onReset={handleReset}>
+            <input
+              type="text"
+              placeholder="Skill name"
+              value={form.name}
+              onChange={handleChange}
+            />
+          </CurriculumForm>
+        )}
+      </ul>
+    </div>
+  );
 }
 
 export default Skills;

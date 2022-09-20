@@ -1,53 +1,39 @@
-import React, { Component } from "react";
-//components
+import React, { useState } from "react";
+// components
 import AutoResize from "components/AutoResize";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//icons
+// icons
 import { faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-//constants
+// constants
 import { ABOUT_ME } from "constants";
 
-class AboutMe extends Component {
-  constructor() {
-    super();
+function AboutMe() {
+  const [editMode, setEditMode] = useState(false);
+  const [aboutMe, setAboutMe] = useState(ABOUT_ME);
 
-    this.state = {
-      editMode: false,
-      aboutMe: ABOUT_ME,
-    };
-  }
-
-  toggleEditMode() {
-    this.setState(({ editMode }) => ({ editMode: !editMode }));
-  }
-
-  render() {
-    const { editMode, aboutMe } = this.state;
-
-    return (
-      <li className="content-item about-me">
-        <FontAwesomeIcon
-          className="edit-btn"
-          onClick={this.toggleEditMode.bind(this)}
-          icon={faPenToSquare}
-          size="lg"
+  return (
+    <li className="content-item about-me">
+      <FontAwesomeIcon
+        className="edit-btn"
+        onClick={() => setEditMode(!editMode)}
+        icon={faPenToSquare}
+        size="lg"
+      />
+      <header className="content-item__header">
+        <h2>About me</h2>
+      </header>
+      {editMode ? (
+        <AutoResize
+          className="full-text-area"
+          placeholder="Describe you"
+          onChange={(e) => setAboutMe(e.target.value)}
+          value={aboutMe}
         />
-        <header className="content-item__header">
-          <h2>About me</h2>
-        </header>
-        {editMode ? (
-          <AutoResize
-            className="full-text-area"
-            placeholder="Describe you"
-            onChange={(value) => this.setState({ aboutMe: value })}
-            value={aboutMe}
-          />
-        ) : (
-          <p className="person-description">{aboutMe || "Description"}</p>
-        )}
-      </li>
-    );
-  }
+      ) : (
+        <p className="person-description">{aboutMe}</p>
+      )}
+    </li>
+  );
 }
 
 export default AboutMe;

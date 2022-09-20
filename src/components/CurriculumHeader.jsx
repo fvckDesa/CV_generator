@@ -1,112 +1,98 @@
-import React, { Component } from "react";
-//components
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+import React, { useState, useRef } from "react";
+// components
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-//icons
+// icons
 import { faPlus, faPenToSquare } from "@fortawesome/free-solid-svg-icons";
-//images
+// images
 import UserPicture from "assets/user-solid.svg";
 
-class CurriculumHeader extends Component {
-  constructor() {
-    super();
+function CurriculumHeader() {
+  const [editMode, setEditMode] = useState(false);
+  const [picture, setPicture] = useState(UserPicture);
+  const [name, setName] = useState("Name");
+  const [profession, setProfession] = useState("Profession");
+  const fileInputRef = useRef();
 
-    this.state = {
-      editMode: false,
-      picture: UserPicture,
-      name: "",
-      profession: "",
-    };
-
-    this.fileInputRef = React.createRef();
-  }
-
-  setPicture(e) {
+  const handlePicture = (e) => {
     if (!e.target.files[0]) return;
 
-    this.setState(({ picture }) => {
-      URL.revokeObjectURL(picture);
-      return { picture: URL.createObjectURL(e.target.files[0]) };
-    });
-  }
+    URL.revokeObjectURL(picture);
 
-  openFileManager() {
-    this.fileInputRef.current.click();
-  }
+    setPicture(URL.createObjectURL(e.target.files[0]));
+  };
 
-  toggleEditMode() {
-    this.setState(({ editMode }) => ({ editMode: !editMode }));
-  }
+  const openFileManager = () => {
+    fileInputRef.current.click();
+  };
 
-  handleChange(name) {
-    return function (e) {
-      this.setState({ ...this.props.values, [name]: e.target.value });
-    };
-  }
+  const toggleEditMode = () => {
+    setEditMode(!editMode);
+  };
 
-  render() {
-    const { picture, name, profession, editMode } = this.state;
-
-    return (
-      <header className="curriculum-header">
+  return (
+    <header className="curriculum-header">
+      <FontAwesomeIcon
+        className="edit-btn"
+        onClick={toggleEditMode}
+        icon={faPenToSquare}
+        size="xl"
+      />
+      <div
+        className="curriculum-header__person-picture"
+        onClick={openFileManager}
+        onKeyDown={openFileManager}
+      >
         <FontAwesomeIcon
-          className="edit-btn"
-          onClick={this.toggleEditMode.bind(this)}
-          icon={faPenToSquare}
-          size="xl"
+          className="curriculum-header__person-picture__add-icon"
+          icon={faPlus}
+          size="2xl"
         />
-        <div
-          className="curriculum-header__person-picture"
-          onClick={this.openFileManager.bind(this)}
-        >
-          <FontAwesomeIcon
-            className="curriculum-header__person-picture__add-icon"
-            icon={faPlus}
-            size="2xl"
+        <input
+          onChange={handlePicture}
+          ref={fileInputRef}
+          type="file"
+          accept="image/*"
+          hidden
+        />
+        {picture ? (
+          // eslint-disable-next-line jsx-a11y/img-redundant-alt
+          <img
+            className="curriculum-header__person-picture__bg"
+            src={picture}
+            alt="person picture"
           />
-          <input
-            onChange={this.setPicture.bind(this)}
-            ref={this.fileInputRef}
-            type="file"
-            accept="image/*"
-            hidden
-          />
-          {picture ? (
-            <img
-              className="curriculum-header__person-picture__bg"
-              src={picture}
+        ) : (
+          <div className="curriculum-header__person-picture__bg" />
+        )}
+      </div>
+      <div className="curriculum-header__person">
+        {editMode ? (
+          <>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Insert your name"
+              className="input-type-h1"
             />
-          ) : (
-            <div className="curriculum-header__person-picture__bg" />
-          )}
-        </div>
-        <div className="curriculum-header__person">
-          {editMode ? (
-            <>
-              <input
-                type="text"
-                value={name}
-                onChange={this.handleChange("name").bind(this)}
-                placeholder="Insert your name"
-                className="input-type-h1"
-              />
-              <input
-                type="text"
-                value={profession}
-                onChange={this.handleChange("profession").bind(this)}
-                placeholder="Insert your profession"
-                className="input-type-h2"
-              />
-            </>
-          ) : (
-            <>
-              <h1>{name || "Name"}</h1>
-              <h2>{profession || "Profession"}</h2>
-            </>
-          )}
-        </div>
-      </header>
-    );
-  }
+            <input
+              type="text"
+              value={profession}
+              onChange={(e) => setProfession(e.target.value)}
+              placeholder="Insert your profession"
+              className="input-type-h2"
+            />
+          </>
+        ) : (
+          <>
+            <h1>{name}</h1>
+            <h2>{profession}</h2>
+          </>
+        )}
+      </div>
+    </header>
+  );
 }
 
 export default CurriculumHeader;

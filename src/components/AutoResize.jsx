@@ -1,40 +1,35 @@
-import React, { Component } from "react";
+import React, { useState, useRef, useEffect } from "react";
 
-class AutoResize extends Component {
-  constructor() {
-    super();
+function AutoResize({
+  className = "",
+  style = {},
+  placeholder = "",
+  value = "",
+  onChange,
+}) {
+  const textareaRef = useRef();
+  const [text, setText] = useState(value);
 
-    this.ref = React.createRef();
-  }
+  useEffect(() => {
+    textareaRef.current.style.height = "auto";
+    textareaRef.current.style.height = `${
+      textareaRef.current.scrollHeight + 2
+    }px`;
+  });
 
-  handleChange(e) {
-    autoResize(e.target);
+  useEffect(() => {
+    setText(value);
+  }, [value]);
 
-    this.props.onChange(e.target.value);
-  }
-
-  componentDidMount() {
-    autoResize(this.ref.current);
-  }
-
-  render() {
-    const { value, placeholder, className, style } = this.props;
-    return (
-      <textarea
-        ref={this.ref}
-        className={className}
-        style={{ resize: "none", ...style }}
-        placeholder={placeholder}
-        onChange={this.handleChange.bind(this)}
-        value={value}
-      ></textarea>
-    );
-  }
+  return (
+    <textarea
+      ref={textareaRef}
+      className={className}
+      style={{ resize: "none", ...style }}
+      placeholder={placeholder}
+      onChange={onChange}
+      value={text}
+    />
+  );
 }
-
 export default AutoResize;
-
-function autoResize(el) {
-  el.style.height = "auto";
-  el.style.height = `${el.scrollHeight + 2}px`;
-}
